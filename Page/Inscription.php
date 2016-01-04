@@ -11,13 +11,19 @@ if(isset($_POST["Valider"])){
     if($count < 1){
             
         try{
-            $req = $bdd->prepare("INSERT INTO t_user (User_Mail,User_Password,User_Street,ID_City,User_Phone) 
-                                    VALUES (:email,:mdp,:adresse,(SELECT City_ID FROM t_city where City_Name = :ville),:gsm)");
+            $req = $bdd->prepare("INSERT INTO t_user (User_Mail,User_Age,User_Height,User_Weight,User_FirstName,User_LastName,User_Password,User_Street,ID_City,ID_Country,User_Phone) 
+                                    VALUES (:email,:age,:taille,:poid,:prenom,:nom,:mdp,:adresse,(SELECT City_ID FROM t_city where City_Name = :ville),(SELECT Country_ID FROM t_country where Country_Name = :pays),:gsm)");
             $req->execute(array(                 
             'adresse' => $_POST["adresse"],
             'ville' => $_POST["ville"],
+            'pays' => $_POST["pays"],
             'gsm' => $_POST["gsm"],
             'email' => $_POST["email"],
+            'nom' => $_POST["nom"],
+            'age' => $_POST["age"],
+            'taille' => $_POST["taille"],
+            'poid' => $_POST["poid"],
+            'prenom' => $_POST["prenom"],
             'mdp' => sha1($_POST["mdp"])
             ));
 
@@ -76,7 +82,14 @@ if(isset($_POST["Valider"])){
                             <form action="Inscription.php"  method="post">
                             
                                 <h4><small>Email</small></h4>
+                                <p><small>Votre email sera votre identifiant</small></p>
                                 <input type="email" class="style-5" style="width:300px;" name="email" placeholder="Email" required/>
+                                <br>
+                                <h4><small>Nom</small></h4>
+                                <input type="text" class="style-5"  style="width:300px;" name="nom" placeholder="Nom" required/>
+                                <br>
+                                 <h4><small>Prenom</small></h4>
+                                <input type="text" class="style-5"  style="width:300px;" name="prenom" placeholder="Prenom" required/>
                                 <br>
 
                                 <h4><small>Mot de passe et Confirmation</small></h4>
@@ -107,13 +120,41 @@ if(isset($_POST["Valider"])){
                                         </select>
                                     </p>
                                 <br />
+
+                                 <h4><small>Pays</small></h4>
+                                    <p>
+                                        <select name="pays" class="form-control" style="width:300px; ">
+                                        <?php
+                                        $reponse_pays = $bdd->query('SELECT * FROM t_country');
+
+                                        while ($donnees_pays = $reponse_pays->fetch(PDO::FETCH_ASSOC))
+                                        {
+                                        ?>
+                                            <option style="color:black;" value="<?php echo $donnees_pays["Country_Name"];?>"><?php echo $donnees_pays["Country_Name"];?></option>  
+                                        <?php
+                                        }
+                                        $reponse_pays->closeCursor();
+                                        ?>
+                                        </select>
+                                    </p>
+                                <br />
      
                                 <h4><small>Téléphone</small></h4>
                                 <input type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="style-5" style="width:300px;" name="gsm" placeholder="Téléphone" required/>
                                 <br>
+                                 <h4><small>Age</small></h4>
+                                <input type="text" class="style-5"  style="width:300px;" name="age" placeholder="age" required/>
+                                <br>
+                                 <h4><small>Taille</small></h4>
+                                <input type="text" class="style-5"  style="width:300px;" name="taille" placeholder="Taille en cm" required/>
+                                <br>
+                                 <h4><small>Poids</small></h4>
+                                <input type="text" class="style-5"  style="width:300px;" name="poid" placeholder="Votre poid" />
+                                <br>
                                  <input class="btn waves-effect waves-light" type="submit" value="Valider" name="Valider"/>
                    
                                 <br>
+
                             </form>
                     </div>
                 </div>
