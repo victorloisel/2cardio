@@ -38,7 +38,7 @@ a:hover { color: white }
                         if(isset($_SESSION['admin'])){
                     ?>
                     <li>
-                    <a href="#">Administration</a>
+                    <a href="Administration.php">Administration</a>
                     </li>
                     <?php
                         }

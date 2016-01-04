@@ -11,8 +11,8 @@ if(isset($_POST["Valider"])){
     if($count < 1){
             
         try{
-            $req = $bdd->prepare("INSERT INTO t_user (User_Mail,User_Age,User_Height,User_Weight,User_FirstName,User_LastName,User_Password,User_Street,ID_City,ID_Country,User_Phone) 
-                                    VALUES (:email,:age,:taille,:poid,:prenom,:nom,:mdp,:adresse,(SELECT City_ID FROM t_city where City_Name = :ville),(SELECT Country_ID FROM t_country where Country_Name = :pays),:gsm)");
+            $req = $bdd->prepare("INSERT INTO t_user (User_Mail,User_Age,User_Height,User_FirstName,User_LastName,User_Password,User_Street,ID_City,ID_Country,User_Phone) 
+                                    VALUES (:email,:age,:taille,:prenom,:nom,:mdp,:adresse,(SELECT City_ID FROM t_city where City_Name = :ville),(SELECT Country_ID FROM t_country where Country_Name = :pays),:gsm)");
             $req->execute(array(                 
             'adresse' => $_POST["adresse"],
             'ville' => $_POST["ville"],
@@ -22,7 +22,6 @@ if(isset($_POST["Valider"])){
             'nom' => $_POST["nom"],
             'age' => $_POST["age"],
             'taille' => $_POST["taille"],
-            'poid' => $_POST["poid"],
             'prenom' => $_POST["prenom"],
             'mdp' => sha1($_POST["mdp"])
             ));
@@ -34,6 +33,14 @@ if(isset($_POST["Valider"])){
             $Role->execute(array(                 
             'id_User' => $row["User_ID"]
             ));
+
+            if(isset($_POST["poid"])){  
+                $Poid = $bdd->prepare("INSERT INTO t_user_weight (ID_User,weight) VALUES (:id_User, :poid)");
+            $Poid->execute(array(  
+            'poid' => $_POST["poid"],               
+            'id_User' => $row["User_ID"]
+            ));
+            }
 
             header('location:Connexion.php');
         }
