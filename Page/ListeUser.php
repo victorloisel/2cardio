@@ -10,7 +10,7 @@ if(isset($_POST["ValiderModif"])){
     {
         $req = $bdd->prepare("UPDATE t_user, t_user_role 
                                 SET User_Mail = :email, User_Street = :adresse,
-                                ID_City = (SELECT City_ID FROM city where City_Name = :ville), User_Phone = :gsm, ID_Role = :role where User_ID = :id and ID_User = User_ID");
+                                ID_City = (SELECT City_ID FROM t_city where City_Name = :ville), User_Phone = :gsm, ID_Role = :role where User_ID = :id and ID_User = User_ID");
         $req->execute(array(                 
         'adresse' => $_POST["adresse"],
         'ville' => $_POST["ville"],

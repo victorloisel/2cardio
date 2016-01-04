@@ -4,7 +4,7 @@ include '../Fonction/ConnexionBDD.php';
 
 if(isset($_POST["Valider"])){
     $email = $_POST["email"];
-    $mdp = $_POST["mdp"];
+    $mdp = sha1($_POST["mdp"]);
         
     $requete = $bdd->query("SELECT * From t_user where User_Mail = '" . $_POST["email"] ."'");
     $row = $requete->fetch(PDO::FETCH_ASSOC);

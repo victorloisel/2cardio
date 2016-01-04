@@ -26,7 +26,7 @@ if(isset($_POST["Valider"])){
 
             $Role = $bdd->prepare("INSERT INTO t_user_role (ID_User,ID_Role) VALUES (:id_User, '2')");
             $Role->execute(array(                 
-            'id_User' => $row["User_id"]
+            'id_User' => $row["User_ID"]
             ));
 
             header('location:Connexion.php');
