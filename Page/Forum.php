@@ -7,11 +7,11 @@ header('location:Connexion.php');
 if(isset($_GET["Repondre"])){     
     try
     {
-            $req = $bdd->prepare("INSERT INTO Reponse (Topic_id,id_User,Reponse_texte) 
-                                    VALUES (:Topic_id,:id_User,:Reponse_texte)");
+            $req = $bdd->prepare("INSERT INTO Reponse (Topic_id,User_ID,Reponse_texte) 
+                                    VALUES (:Topic_id,:User_ID,:Reponse_texte)");
             $req->execute(array(                 
             'Topic_id' => $_GET['Topic'],
-            'id_User' => $_SESSION["id"],
+            'User_ID' => $_SESSION["id"],
             'Reponse_texte' => $_GET["reponse"]
             ));
     }
@@ -64,7 +64,7 @@ if(isset($_GET["Repondre"])){
                             <table class="table">
                                 <tr class="active"><td>Titre</td><td>Auteur</td><td>Nombre de reponses</td></tr>
                                 <?php
-                                $reponse_topic = $bdd->query('SELECT Topic_id, id_User, Topic_titre, (SELECT count(Reponse_id)-1 from Reponse where Topic.Topic_id = Reponse.Topic_id) as Topic_nbreponse, (select User_email from User where User_id = id_User) as User FROM Topic');
+                                $reponse_topic = $bdd->query('SELECT Topic_id, id_User, Topic_titre, (SELECT count(Reponse_id)-1 from Reponse where Topic_id = Topic.Topic_id) as Topic_nbreponse, (select User_Mail from t_user where User_ID = Topic.id_User) as User FROM Topic');
                                 
                                 while ($donnees_topic = $reponse_topic->fetch(PDO::FETCH_ASSOC))
                                 {
@@ -118,7 +118,7 @@ if(isset($_GET["Repondre"])){
                             <table class="table">
                                 <tr class="active"><td>Date/Auteur</td><td>Reponse</td></tr>
                                 <?php
-                                $reponse_topic = $bdd->query("SELECT Reponse_id, Topic_id,id_User, Reponse_texte, Reponse_date, (select User_email from User where User_id = id_User) as User FROM Reponse where Topic_id = '" . $_GET['Topic'] ."'");
+                                $reponse_topic = $bdd->query("SELECT Reponse_id, Topic_id,id_User, Reponse_texte, Reponse_date, (select User_Mail from t_user where User_ID = Reponse.id_User) as User FROM Reponse where Topic_id = '" . $_GET['Topic'] ."'");
                                 
                                 while ($donnees_topic = $reponse_topic->fetch(PDO::FETCH_ASSOC))
                                 {
