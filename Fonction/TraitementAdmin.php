@@ -13,8 +13,50 @@ if(isset($_GET["creaExo"])){
             'Exercice_Repetition' => $_GET["repetition"],
             ));
 
+            $lastId = $bdd->lastInsertId();
 
-                header('location:../Page/Administration.php?creation=exercice');
+              $reponse_difficulty = $bdd->query('SELECT * FROM t_difficulty');
+
+                                while ($donnees_difficulty = $reponse_difficulty->fetch(PDO::FETCH_ASSOC))
+                                {
+                                    if ($donnees_difficulty["Difficulty_ID"] == $_GET['boxdif'].$donnees_difficulty["Difficulty_ID"]){
+
+                                        $req = $bdd->prepare("INSERT INTO t_exercice_difficulty (ID_Difficulty,ID_Exercice) 
+                                                                VALUES (:ID_Difficulty,:id)");
+                                        $req->execute(array(                 
+                                         'id' => $lastId,
+                                        'ID_Difficulty' => $_GET['boxdif'],
+                                        ));
+                                    }
+
+
+                                }
+                                $reponse_difficulty->closeCursor();
+
+
+
+               $reponse_objective = $bdd->query('SELECT * FROM t_objective');
+
+                                while ($donnees_objective = $reponse_objective->fetch(PDO::FETCH_ASSOC))
+                                {
+                                    if ($donnees_objective["Objective_ID"] == $_GET['boxobj']){
+                                        $req = $bdd->prepare("INSERT INTO t_exercice_objective (ID_Objective,ID_Exercice) 
+                                                                VALUES (:ID_Objective,:id)");
+                                        $req->execute(array(                 
+                                         'id' => $lastId,
+                                        'ID_Objective' => $_GET['boxobj'],
+                                        ));
+                                    }
+
+
+                                }
+                                $reponse_objective->closeCursor();                  
+
+
+
+
+
+                //header('location:../Page/Administration.php?creation=exercice');
         }
         catch(Exception $e)
         {
