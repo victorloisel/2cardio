@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 04 Janvier 2016 à 14:16
+-- Généré le :  Mar 05 Janvier 2016 à 08:33
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -94,6 +94,7 @@ INSERT INTO `t_difficulty` (`Difficulty_ID`, `Difficulty_Name`, `Difficulty_Fact
 CREATE TABLE IF NOT EXISTS `t_exercice` (
   `Exercice_ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `Exercice_Name` text NOT NULL,
+  `Exercice_Repetition` int(10) unsigned NOT NULL,
   PRIMARY KEY (`Exercice_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
@@ -101,13 +102,13 @@ CREATE TABLE IF NOT EXISTS `t_exercice` (
 -- Contenu de la table `t_exercice`
 --
 
-INSERT INTO `t_exercice` (`Exercice_ID`, `Exercice_Name`) VALUES
-(1, 'Pompes'),
-(2, 'Abdos'),
-(3, 'Corde à sauter'),
-(4, 'Course'),
-(5, 'Flexions'),
-(6, 'Crunch Abdo');
+INSERT INTO `t_exercice` (`Exercice_ID`, `Exercice_Name`, `Exercice_Repetition`) VALUES
+(1, 'Pompes', 20),
+(2, 'Abdos', 20),
+(3, 'Corde à sauter', 50),
+(4, 'Course', 25),
+(5, 'Flexions', 40),
+(6, 'Crunch Abdo', 10);
 
 -- --------------------------------------------------------
 
@@ -202,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `t_history` (
   `History_Repetition` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`History_ID`),
   KEY `ID_Status` (`ID_Status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `t_history`
@@ -210,7 +211,8 @@ CREATE TABLE IF NOT EXISTS `t_history` (
 
 INSERT INTO `t_history` (`History_ID`, `History_Programme`, `ID_User`, `ID_Exercice`, `ID_Difficulty`, `ID_Objective`, `ID_Status`, `History_Date`, `History_Repetition`) VALUES
 (4, 1, 1, 1, 1, 1, 1, '2016-01-04 10:10:03', 10),
-(5, 1, 1, 2, 1, 1, 1, '2016-01-04 10:10:03', 20);
+(5, 1, 1, 2, 1, 1, 1, '2016-01-04 10:10:03', 20),
+(6, 1, 2, 1, 1, 1, 1, '2016-01-04 19:03:13', 15);
 
 -- --------------------------------------------------------
 
@@ -338,7 +340,6 @@ CREATE TABLE IF NOT EXISTS `t_user` (
   `User_Phone` tinytext,
   `User_Password` text NOT NULL,
   `User_Age` tinyint(4) DEFAULT NULL,
-  `User_Weight` int(11) DEFAULT NULL,
   `User_Height` int(11) DEFAULT NULL,
   PRIMARY KEY (`User_ID`),
   KEY `ID_City` (`ID_City`),
@@ -349,9 +350,9 @@ CREATE TABLE IF NOT EXISTS `t_user` (
 -- Contenu de la table `t_user`
 --
 
-INSERT INTO `t_user` (`User_ID`, `User_FirstName`, `User_LastName`, `User_Mail`, `ID_City`, `ID_Country`, `User_Street`, `User_Phone`, `User_Password`, `User_Age`, `User_Weight`, `User_Height`) VALUES
-(1, 'Murail', 'Jeremy', 'jeremy.murail@gmail.com', 5, 1, '7 allée henri barbier', '0635347534', 'test', 22, 84, 185),
-(2, 'Loisel', 'Victor', 'victor.loisel@gmail.com', 7, 1, '3 rue du bois', '0635141215', 'test', 29, 110, 183);
+INSERT INTO `t_user` (`User_ID`, `User_FirstName`, `User_LastName`, `User_Mail`, `ID_City`, `ID_Country`, `User_Street`, `User_Phone`, `User_Password`, `User_Age`, `User_Height`) VALUES
+(1, 'Murail', 'Jeremy', 'jeremy.murail@gmail.com', 5, 1, '7 allée henri barbier', '0635347534', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 22, 185),
+(2, 'Loisel', 'Victor', 'victor.loisel@gmail.com', 7, 1, '3 rue du bois', '0635141215', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 29, 183);
 
 -- --------------------------------------------------------
 
@@ -373,6 +374,27 @@ CREATE TABLE IF NOT EXISTS `t_user_role` (
 INSERT INTO `t_user_role` (`ID_Role`, `ID_User`) VALUES
 (1, 1),
 (1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `t_weight`
+--
+
+CREATE TABLE IF NOT EXISTS `t_weight` (
+  `ID_User` tinyint(3) unsigned NOT NULL,
+  `Weight_Value` int(11) NOT NULL,
+  `Weight_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY `ID_User` (`ID_User`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `t_weight`
+--
+
+INSERT INTO `t_weight` (`ID_User`, `Weight_Value`, `Weight_Date`) VALUES
+(1, 84, '2016-01-04 15:08:28'),
+(2, 110, '2016-01-04 15:08:28');
 
 --
 -- Contraintes pour les tables exportées
@@ -418,6 +440,12 @@ ALTER TABLE `t_user`
 ALTER TABLE `t_user_role`
   ADD CONSTRAINT `FK_User` FOREIGN KEY (`ID_User`) REFERENCES `t_user` (`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_Role-User` FOREIGN KEY (`ID_Role`) REFERENCES `t_role` (`Role_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `t_weight`
+--
+ALTER TABLE `t_weight`
+  ADD CONSTRAINT `FK_User_Weight` FOREIGN KEY (`ID_User`) REFERENCES `t_user` (`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
