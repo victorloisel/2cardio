@@ -46,7 +46,7 @@ include '../Fonction/ConnexionBDD.php';
                         </br>
                         </br>
                         <h4>Espace administration : </h4>
-                            <form action="Administration.php" method="get">
+                            <form action="Administration.php" method="post">
                                 <button type="submit" name="creation" value="exercice" class="btn btn-primary" style="background-color:#26A64A; font-weight: bold;">Exercice</button>
                    
                                 <button type="submit" name="creation" value="objective" class="btn btn-primary" style="background-color:#26A64A; font-weight: bold;">Objectif</button>
@@ -61,7 +61,7 @@ include '../Fonction/ConnexionBDD.php';
 
 
                             <?php
-                            if($_GET['creation'] == "exercice" || $_GET['create'] == "exercice"){
+                            if($_POST['creation'] == "exercice" || $_POST['create'] == "exercice"){
                             ?>
                             <table class="table table-bordered">
                                 <tr style="background-color: #26a69a; color:white; font-weight: bold;">

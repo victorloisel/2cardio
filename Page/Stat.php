@@ -13,10 +13,10 @@ include '../Fonction/ConnexionBDD.php';
 
 
 // requete pour obtenir le nombre de programmes effectuer par l'utilisateur ainsi que le nombre de difficultés différentes
-$requete_programme=$bdd->query("SELECT Distinct(History_Programme) FROM t_history WHERE ID_User = '".$_SESSION["id"]."'");
-$req_programme=$bdd->query("SELECT Distinct(History_Programme) FROM t_history WHERE ID_User = '".$_SESSION["id"]."'");
-$requete_difficulty=$bdd->query("SELECT Difficulty_Name FROM t_difficulty");
-$req_difficulty=$bdd->query("SELECT Difficulty_Name FROM t_difficulty");
+//$requete_programme=$bdd->query("SELECT Distinct(History_Programme) FROM t_history WHERE ID_User = '".$_SESSION["id"]."'");
+$req_programme=$bdd->prepare("SELECT Distinct(History_Programme) FROM t_history WHERE ID_User = '".$_SESSION["id"]."'");
+//$requete_difficulty=$bdd->query("SELECT Difficulty_Name FROM t_difficulty");
+$req_difficulty=$bdd->prepare("SELECT Difficulty_Name FROM t_difficulty");
 $requete_data=$bdd->query("SELECT `Difficulty_Name`, `Exercice_Name`, `History_Date`, `History_Repetition` ,`Exercice_Repetition`
                             FROM t_history
                             INNER JOIN t_exercice
@@ -63,7 +63,8 @@ $res=$requete_data->fetchAll(PDO::FETCH_ASSOC);
                             <ul class="dropdown-menu" aria-labelledby="progDrop" id="progDrop-contents">
                                 <?php // incrémentation du panneau déroulant en fonction du nombre de programmes
                                     $counter_programme=1;
-                                    while ($donnees = $requete_programme->fetch(PDO::FETCH_ASSOC)){ ?>
+                                    $req_programme->execute();
+                                    while ($donnees = $req_programme->fetch(PDO::FETCH_ASSOC)){ ?>
                                         <li class=""><a href="#progDrop<?php echo $counter_programme;?>" role="tab" id="progDrop<?php echo $counter_programme;?>-tab" data-toggle="tab" aria-controls="progDrop<?php echo $counter_programme;?>" aria-expanded="false">programme <?php echo $donnees["History_Programme"];?></a></li>
                                 <?php $counter_programme++; } ?>
                             </ul> 
@@ -72,7 +73,8 @@ $res=$requete_data->fetchAll(PDO::FETCH_ASSOC);
                             <ul class="dropdown-menu" aria-labelledby="lvlDrop" id="lvlDrop-contents">
                                 <?php // incrémentation du panneau déroulant en fonction du nombre de difficulté
                                     $counter_difficulty=1;
-                                    while ($donnees = $requete_difficulty->fetch(PDO::FETCH_ASSOC)){ ?>
+                                    $req_difficulty->execute();
+                                    while ($donnees = $req_difficulty->fetch(PDO::FETCH_ASSOC)){ ?>
                                     <li class=""><a href="#lvlDrop<?php echo $counter_difficulty;?>" role="tab" id="lvlDrop<?php echo $counter_difficulty;?>-tab" data-toggle="tab" aria-controls="lvlDrop<?php echo $counter_difficulty;?>" aria-expanded="false"><?php echo $donnees["Difficulty_Name"];?></a></li>
                                 <?php $counter_difficulty++;} ?>
                             </ul> 
@@ -84,6 +86,7 @@ $res=$requete_data->fetchAll(PDO::FETCH_ASSOC);
                         <div role="tabpanel" class="tab-pane fade active in" id="Poids">test</div>
                         <?php  // création d'une div qui contient le graphique pour chaque programme
                                     $counter_programme=1;
+                                    $req_programme->execute();
                                     while ($donnees = $req_programme->fetch(PDO::FETCH_ASSOC)){ ?>
                         <div role="tabpanel" class="tab-pane fade" id="progDrop<?php echo $counter_programme;?>" aria-labelledby="progDrop<?php echo $counter_programme;?>-tab">
                                 <table border="1">
@@ -113,6 +116,7 @@ $res=$requete_data->fetchAll(PDO::FETCH_ASSOC);
                         <?php $counter_programme++;} ?>
                         <?php // création d'une div qui contient le graphique pour chaque difficulté
                                     $counter_difficulty=1;
+                                    $req_difficulty->execute();
                                     while ($donnees = $req_difficulty->fetch(PDO::FETCH_ASSOC)){ ?>
                         <div role="tabpanel" class="tab-pane fade" id="lvlDrop<?php echo $counter_difficulty;?>" aria-labelledby="lvlDrop<?php echo $counter_difficulty;?>-tab">graph <?php echo $counter_difficulty ?></div>
                         <?php $counter_difficulty++; } ?>
