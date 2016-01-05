@@ -107,6 +107,7 @@ include '../Fonction/ConnexionBDD.php';
                                     </tr>
                         </table>
                         <?php
+                        if(isset($_GET["create"])){  
                          if($_GET['create'] == "exercice"){
                         ?> 
                         <div class="row">
@@ -126,7 +127,8 @@ include '../Fonction/ConnexionBDD.php';
                                 </form>
                             </div>
                         </div>
-                        <?php        
+                        <?php  
+                        }      
                         } 
                     }
                 ?>
@@ -179,6 +181,7 @@ include '../Fonction/ConnexionBDD.php';
                                     </tr>
                         </table>
                         <?php
+                        if(isset($_GET["create"])){ 
                          if($_GET['create'] == "objective"){
                         ?> 
                         <div class="row">
@@ -200,6 +203,7 @@ include '../Fonction/ConnexionBDD.php';
                         </div>
                         <?php        
                         } 
+                    }
                     }
                 ?>
 
@@ -252,6 +256,7 @@ include '../Fonction/ConnexionBDD.php';
                                     </tr>
                         </table>
                         <?php
+                        if(isset($_GET["create"])){ 
                          if($_GET['create'] == "difficulty"){
                         ?> 
                         <div class="row">
@@ -273,6 +278,7 @@ include '../Fonction/ConnexionBDD.php';
                         </div>
                         <?php        
                         } 
+                    }
                     }
                 }
                 ?>
