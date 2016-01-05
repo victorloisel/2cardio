@@ -31,6 +31,9 @@ a:hover { color: white }
                         <a href="Stat.php">Statistiques</a>
                     </li>
                     <li>
+                        <a href="test.php">test</a>
+                    </li>
+                    <li>
                         <a href="ListeUser.php">Liste des utilisateurs</a>
                     </li>
                    
