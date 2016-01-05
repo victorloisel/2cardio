@@ -1,7 +1,4 @@
-<?php
-    session_start();
-    include '../Fonction/ConnexionBDD.php';
-?>        
+      
 <style>
 a:active { color: white }
 a:link { color: white } /* Liens non visités */
@@ -29,6 +26,9 @@ a:hover { color: white }
                     </li>
                     <li>
                         <a href="Profil.php">Votre Profil</a>
+                    </li>
+                    <li>
+                        <a href="Stat.php">Statistiques</a>
                     </li>
                     <li>
                         <a href="ListeUser.php">Liste des utilisateurs</a>
