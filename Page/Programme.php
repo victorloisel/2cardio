@@ -117,7 +117,7 @@ if(isset($_POST["encours"]) || isset($_GET["encours"])){
                                     
                                         
                                     ?> 
-                                            <tr><td style="background-color: #26a69a; color:white; font-weight: bold; width: 10px;"><?php echo $donnees["Exercice_Name"];?></td>
+                                            <tr><td style=" font-weight: bold; width: 10px;"><?php echo $donnees["Exercice_Name"];?></td>
                                                 <td style=" font-weight: bold; width: 10px;"><?php echo $donnees["Exercice_Repetition"];?></td>
                                             
 

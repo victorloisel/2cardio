@@ -7,7 +7,7 @@ header('location:Connexion.php');
 if(isset($_GET["Repondre"])){     
     try
     {
-            $req = $bdd->prepare("INSERT INTO Reponse (Topic_id,User_ID,Reponse_texte) 
+            $req = $bdd->prepare("INSERT INTO Reponse (Topic_id,id_User,Reponse_texte) 
                                     VALUES (:Topic_id,:User_ID,:Reponse_texte)");
             $req->execute(array(                 
             'Topic_id' => $_GET['Topic'],
