@@ -61,6 +61,7 @@ include '../Fonction/ConnexionBDD.php';
 
                             
                             <?php
+                            //test
                         if(isset($_GET["creation"]) || isset($_GET["create"])){     
                             if($_GET['creation'] == "exercice" || $_GET['create'] == "exercice"){
                             ?>
