@@ -197,7 +197,7 @@ if(isset($_POST["generer"])){
 <br>
 <br>
         <h5>Notre proposition :</h5>
-                <form onsubmit="return confirm('etes vous sur ?');" action="../Fonction/TraitementProgramme.php" method="post">
+                
                  <table class="table table-bordered">
                                
                                 <tr style="background-color: #26a69a; color:white; font-weight: bold;">
@@ -268,6 +268,7 @@ if(isset($_POST["generer"])){
                                     ?>
                                     
                         </table>                 
+                                                    <form onsubmit="return confirm('etes vous sur ?');" action="Programme.php?encours=test" method="post">
                                                         <button type="submit" name="creerprog" value="<?php echo $donnees["ID_Exercice"];?>" class="btn btn-primary" style="background-color:#26A64A; font-weight: bold; width:300px;">Je veux suivre ce programme</button>
                                                         <br>
                                                    </form>
