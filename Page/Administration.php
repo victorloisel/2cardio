@@ -59,18 +59,20 @@ include '../Fonction/ConnexionBDD.php';
                         </br>
 
 
-
+                            
                             <?php
+                        if(isset($_GET["creation"]) || isset($_GET["create"])){     
                             if($_GET['creation'] == "exercice" || $_GET['create'] == "exercice"){
                             ?>
                             <table class="table table-bordered">
                                 <tr style="background-color: #26a69a; color:white; font-weight: bold;">
                                     <td>id</td>
                                     <td>Nom de l'exercice</td>
+                                    <td>Nombre de repetition</td>
                                     
                                 </tr>
                                 <?php
-                                    $reponse = $bdd->query("SELECT distinct(Exercice_ID), Exercice_Name
+                                    $reponse = $bdd->query("SELECT distinct(Exercice_ID), Exercice_Name, Exercice_Repetition
                                                             FROM t_exercice
                                                             ");
                                     while ($donnees = $reponse->fetch(PDO::FETCH_ASSOC))
@@ -80,12 +82,13 @@ include '../Fonction/ConnexionBDD.php';
                                     ?> 
                                             <tr><td style="background-color: #26a69a; color:white; font-weight: bold; width: 10px;"><?php echo $donnees["Exercice_ID"];?></td>
                                                 <td><?php echo $donnees["Exercice_Name"];?></td>
+                                                <td><?php echo $donnees["Exercice_Repetition"];?></td>
                                                   <td style="border:none;">
-                                            <form onsubmit="return confirm('Voulez-vous vraiment supprimer cette exercice ?');"  action="../Fonction/TraitementAdmin.php" method="get">
-                                                <input type="text" class="style-5" style="width:300px; display:none;"  name="Topic" value="<?php echo $donnees["Exercice_ID"];?>"/>
-                                                <button type="submit" name="DeleteExo" value="<?php echo $donnees["Exercice_ID"];?>" class="btn btn-danger" style="background-color:#B20000;">X</button>
-                                            </form>
-                                        </td>
+                                                    <form onsubmit="return confirm('Voulez-vous vraiment supprimer cette exercice ?');"  action="../Fonction/TraitementAdmin.php" method="get">
+                                                        <input type="text" class="style-5" style="width:300px; display:none;"  name="Topic" value="<?php echo $donnees["Exercice_ID"];?>"/>
+                                                        <button type="submit" name="DeleteExo" value="<?php echo $donnees["Exercice_ID"];?>" class="btn btn-danger" style="background-color:#B20000;">X</button>
+                                                    </form>
+                                                </td>
 
                                                
                                             </tr>                     
@@ -111,6 +114,9 @@ include '../Fonction/ConnexionBDD.php';
                                 
                                     <h4><small>Votre exercice</small></h4>
                                     <input type="text" class="style-5" style="width:300px;" name="nom" placeholder="Nom" required/>
+                                                       
+                                    <br>
+                                    <input type="text" class="style-5" style="width:300px;" name="repetition" placeholder="Nombre de repetition" required/>
                                                        
                                     <br>
                                     <input type="submit" name="creaExo" value="creer mon exercice" class="btn btn-primary" style="background-color:#26A64A; font-weight: bold;"/>
@@ -267,6 +273,7 @@ include '../Fonction/ConnexionBDD.php';
                         <?php        
                         } 
                     }
+                }
                 ?>
 
 

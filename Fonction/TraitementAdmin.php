@@ -6,10 +6,11 @@ if(isset($_GET["creaExo"])){
 
   
         try{
-            $req = $bdd->prepare("INSERT INTO t_exercice (Exercice_Name) 
-                                    VALUES (:Exercice_Name)");
+            $req = $bdd->prepare("INSERT INTO t_exercice (Exercice_Name,Exercice_Repetition) 
+                                    VALUES (:Exercice_Name,:Exercice_Repetition)");
             $req->execute(array(                 
             'Exercice_Name' => $_GET["nom"],
+            'Exercice_Repetition' => $_GET["repetition"],
             ));
 
 
