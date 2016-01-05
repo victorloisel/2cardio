@@ -60,10 +60,8 @@ include '../Fonction/ConnexionBDD.php';
 
 
                             
-                            <?php
-                            //test
-                        if(isset($_GET["creation"]) || isset($_GET["create"])){     
-                            if($_GET['creation'] == "exercice" || $_GET['create'] == "exercice"){
+                            <?php    
+                            if((isset($_GET["creation"]) && $_GET['creation'] == "exercice") || (isset($_GET["create"]) && $_GET['create'] == "exercice")){
                             ?>
                             <table class="table table-bordered">
                                 <tr style="background-color: #26a69a; color:white; font-weight: bold;">
@@ -107,8 +105,7 @@ include '../Fonction/ConnexionBDD.php';
                                     </tr>
                         </table>
                         <?php
-                        if(isset($_GET["create"])){  
-                         if($_GET['create'] == "exercice"){
+                         if(isset($_GET["create"]) && $_GET['create'] == "exercice"){
                         ?> 
                         <div class="row">
                             <div class="col-lg-12">
@@ -127,8 +124,7 @@ include '../Fonction/ConnexionBDD.php';
                                 </form>
                             </div>
                         </div>
-                        <?php  
-                        }      
+                        <?php        
                         } 
                     }
                 ?>
@@ -137,7 +133,7 @@ include '../Fonction/ConnexionBDD.php';
 
 
                             <?php
-                            if($_GET['creation'] == "objective" || $_GET['create'] == "objective"){
+                            if((isset($_GET["creation"]) && $_GET['creation'] == "objective") || (isset($_GET["create"]) && $_GET['create'] == "objective")){
                             ?>
                             <table class="table table-bordered">
                                 <tr style="background-color: #26a69a; color:white; font-weight: bold;">
@@ -181,8 +177,7 @@ include '../Fonction/ConnexionBDD.php';
                                     </tr>
                         </table>
                         <?php
-                        if(isset($_GET["create"])){ 
-                         if($_GET['create'] == "objective"){
+                         if(isset($_GET["create"]) && $_GET['create'] == "objective"){
                         ?> 
                         <div class="row">
                             <div class="col-lg-12">
@@ -204,7 +199,6 @@ include '../Fonction/ConnexionBDD.php';
                         <?php        
                         } 
                     }
-                    }
                 ?>
 
 
@@ -212,7 +206,7 @@ include '../Fonction/ConnexionBDD.php';
 
 
                        <?php
-                            if($_GET['creation'] == "difficulty" || $_GET['create'] == "difficulty"){
+                            if((isset($_GET["creation"]) && $_GET['creation'] == "difficulty") || (isset($_GET["create"]) && $_GET['create'] == "difficulty")){
                             ?>
                             <table class="table table-bordered">
                                 <tr style="background-color: #26a69a; color:white; font-weight: bold;">
@@ -256,8 +250,7 @@ include '../Fonction/ConnexionBDD.php';
                                     </tr>
                         </table>
                         <?php
-                        if(isset($_GET["create"])){ 
-                         if($_GET['create'] == "difficulty"){
+                         if(isset($_GET["create"]) && $_GET['create'] == "difficulty"){
                         ?> 
                         <div class="row">
                             <div class="col-lg-12">
@@ -279,8 +272,6 @@ include '../Fonction/ConnexionBDD.php';
                         <?php        
                         } 
                     }
-                    }
-                }
                 ?>
 
 
