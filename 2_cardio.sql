@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Mar 05 Janvier 2016 à 08:33
--- Version du serveur :  5.6.17
--- Version de PHP :  5.5.12
+-- Client: localhost
+-- Généré le: Mar 05 Janvier 2016 à 08:39
+-- Version du serveur: 5.5.46-0ubuntu0.14.04.2
+-- Version de PHP: 5.5.9-1ubuntu4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,8 +17,62 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `2.cardio`
+-- Base de données: `2.Cardio`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Reponse`
+--
+
+CREATE TABLE IF NOT EXISTS `Reponse` (
+  `Reponse_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Topic_id` int(11) NOT NULL,
+  `id_User` int(11) NOT NULL,
+  `Reponse_texte` mediumtext COLLATE utf8_bin NOT NULL,
+  `Reponse_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Reponse_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=18 ;
+
+--
+-- Contenu de la table `Reponse`
+--
+
+INSERT INTO `Reponse` (`Reponse_id`, `Topic_id`, `id_User`, `Reponse_texte`, `Reponse_date`) VALUES
+(1, 1, 2, 'une question sur le topic 1 ?', '2015-12-11 09:30:09'),
+(2, 2, 2, 'question sur le topic 2 ?', '2015-12-11 09:30:20'),
+(4, 1, 2, 'test test', '2015-12-11 09:31:31'),
+(9, 1, 1, 'test', '2015-12-11 13:12:43'),
+(11, 11, 2, 'testtest', '2015-12-11 13:14:59'),
+(12, 12, 1, 'test ?', '2015-12-11 17:23:33'),
+(13, 12, 1, 'test', '2015-12-11 17:23:40'),
+(14, 1, 1, 'test', '2016-01-04 10:45:10'),
+(17, 15, 1, 'test', '2016-01-04 12:25:15');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Topic`
+--
+
+CREATE TABLE IF NOT EXISTS `Topic` (
+  `Topic_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Topic_titre` text COLLATE utf8_bin NOT NULL,
+  `id_User` int(11) NOT NULL,
+  PRIMARY KEY (`Topic_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=16 ;
+
+--
+-- Contenu de la table `Topic`
+--
+
+INSERT INTO `Topic` (`Topic_id`, `Topic_titre`, `id_User`) VALUES
+(1, 'Affichage d''un select en PHP', 1),
+(2, 'Affichage d''un update en PHP', 1),
+(11, 'testtest', 2),
+(12, 'test', 1),
+(15, 'test', 1);
 
 -- --------------------------------------------------------
 
@@ -96,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `t_exercice` (
   `Exercice_Name` text NOT NULL,
   `Exercice_Repetition` int(10) unsigned NOT NULL,
   PRIMARY KEY (`Exercice_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `t_exercice`
@@ -108,7 +162,8 @@ INSERT INTO `t_exercice` (`Exercice_ID`, `Exercice_Name`, `Exercice_Repetition`)
 (3, 'Corde à sauter', 50),
 (4, 'Course', 25),
 (5, 'Flexions', 40),
-(6, 'Crunch Abdo', 10);
+(6, 'Crunch Abdo', 10),
+(7, 'pompes test', 0);
 
 -- --------------------------------------------------------
 
