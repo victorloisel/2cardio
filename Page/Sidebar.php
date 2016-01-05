@@ -30,6 +30,9 @@ a:hover { color: white }
                     <li>
                         <a href="Stat.php">Statistiques</a>
                     </li>
+                     <li>
+                        <a href="Programme.php">Mon programme</a>
+                    </li>
                     <li>
                         <a href="ListeUser.php">Liste des utilisateurs</a>
                     </li>
