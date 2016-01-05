@@ -118,6 +118,50 @@ include '../Fonction/ConnexionBDD.php';
                                     <input type="text" class="style-5" style="width:300px;" name="repetition" placeholder="Nombre de repetition" required/>
                                                        
                                     <br>
+                                    <label>Difficulté possible :</label>
+                                    <?php
+                                        $reponse_dif = $bdd->query('SELECT * FROM t_difficulty');
+
+                                        while ($donnees = $reponse_dif->fetch(PDO::FETCH_ASSOC))
+                                        {
+                                        ?>
+
+
+
+              
+
+                                     <p>
+                                    
+                                        <input name=<?php echo "boxdif" . $donnees["Difficulty_ID"];?> value=<?php echo $donnees["Difficulty_ID"];?> type="checkbox" id=<?php echo $donnees["Difficulty_Name"];?>>
+                                        <label for=<?php echo $donnees["Difficulty_Name"];?>><?php echo $donnees["Difficulty_Name"];?></label>
+                                     
+                                      </p>
+
+                                    <?php
+                                        }
+                                        $reponse_dif->closeCursor();
+                                        ?>              
+                                    <br>
+                                      <label>Objectif possible :</label>
+                                    <?php
+                                        $reponse_obj = $bdd->query('SELECT * FROM t_objective');
+
+                                        while ($donnees = $reponse_obj->fetch(PDO::FETCH_ASSOC))
+                                        {
+                                        ?>
+                                    <p>
+                                       <input name=<?php echo "boxobj" . $donnees["Objective_ID"];?> value=<?php echo $donnees["Objective_ID"];?> type="checkbox" id=<?php echo $donnees["Objective_Name"];?>>
+                                        <label for=<?php echo $donnees["Objective_Name"];?>><?php echo $donnees["Objective_Name"];?></label>
+                                          
+                                         
+                                      </p>
+
+                                    <?php
+                                        }
+                                        $reponse_obj->closeCursor();
+                                        ?>              
+                                    <br>
+
                                     <input type="submit" name="creaExo" value="creer mon exercice" class="btn btn-primary" style="background-color:#26A64A; font-weight: bold;"/>
                                 
                                     <br>
