@@ -67,7 +67,7 @@ include '../Fonction/ConnexionBDD.php';
                                 <tr style="background-color: #26a69a; color:white; font-weight: bold;">
                                     <td>id</td>
                                     <td>Nom de l'exercice</td>
-                                    <td>Nombre de repetition</td>
+                                    <td>Nombre de repetition / Durée de base</td>
                                     
                                 </tr>
                                 <?php
@@ -132,7 +132,7 @@ include '../Fonction/ConnexionBDD.php';
 
                                      <p>
                                     
-                                        <input name=<?php echo "boxdif" . $donnees["Difficulty_ID"];?> value=<?php echo $donnees["Difficulty_ID"];?> type="checkbox" id=<?php echo $donnees["Difficulty_Name"];?>>
+                                        <input name="boxdif" value=<?php echo $donnees["Difficulty_ID"];?> type="checkbox" id=<?php echo $donnees["Difficulty_Name"];?>>
                                         <label for=<?php echo $donnees["Difficulty_Name"];?>><?php echo $donnees["Difficulty_Name"];?></label>
                                      
                                       </p>
@@ -150,7 +150,7 @@ include '../Fonction/ConnexionBDD.php';
                                         {
                                         ?>
                                     <p>
-                                       <input name=<?php echo "boxobj" . $donnees["Objective_ID"];?> value=<?php echo $donnees["Objective_ID"];?> type="checkbox" id=<?php echo $donnees["Objective_Name"];?>>
+                                       <input name="boxobj" value=<?php echo $donnees["Objective_ID"];?> type="checkbox" id=<?php echo $donnees["Objective_Name"];?>>
                                         <label for=<?php echo $donnees["Objective_Name"];?>><?php echo $donnees["Objective_Name"];?></label>
                                           
                                          

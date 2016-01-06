@@ -19,16 +19,15 @@ if(isset($_GET["creaExo"])){
 
                                 while ($donnees_difficulty = $reponse_difficulty->fetch(PDO::FETCH_ASSOC))
                                 {
-                                    if ($donnees_difficulty["Difficulty_ID"] == $_GET['boxdif'].$donnees_difficulty["Difficulty_ID"]){
+                                    if ($donnees_difficulty["Difficulty_ID"] == $_GET['boxdif']){
 
                                         $req = $bdd->prepare("INSERT INTO t_exercice_difficulty (ID_Difficulty,ID_Exercice) 
                                                                 VALUES (:ID_Difficulty,:id)");
                                         $req->execute(array(                 
                                          'id' => $lastId,
-                                        'ID_Difficulty' => $_GET['boxdif'],
+                                        'ID_Difficulty' => $_GET['boxdif'].$donnees_difficulty["Difficulty_ID"],
                                         ));
                                     }
-
 
                                 }
                                 $reponse_difficulty->closeCursor();

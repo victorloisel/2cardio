@@ -21,6 +21,15 @@ include '../Fonction/ConnexionBDD.php';
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+  <style>
+.image p {
+    visibility: hidden;
+}
+ 
+.image span:hover + p {
+    visibility: visible;
+}
+  </style>
 </head>
 
 <body>
@@ -96,6 +105,9 @@ if(isset($_POST["encours"]) || isset($_GET["encours"])){
 <br>
 <br>
         <h5>Votre programme en cours :</h5>
+         <button class="btn" onclick="javascript:print()" style=" font-weight: bold; width:300px;">Imprimer</button>
+                                                        <br>
+                                                        <br>
 
                  <table class="table table-bordered">
                                
@@ -107,7 +119,7 @@ if(isset($_POST["encours"]) || isset($_GET["encours"])){
                                     
                                 </tr>
                                 <?php
-                                    $reponse = $bdd->query("SELECT ID_Exercice, History_Repetition, ID_Objective, ID_Difficulty,Exercice_Name,
+                                    $reponse = $bdd->query("SELECT ID_Exercice, History_Repetition, ID_Objective, ID_Difficulty,Exercice_Name, Exercice_Link, Exercice_Description,
                             (Exercice_Repetition*(select Difficulty_Factor from t_difficulty where Difficulty_ID = ID_Difficulty)*(select Objective_Factor from t_objective where Objective_ID = ID_Objective)) as  Exercice_Repetition
                                                             FROM t_history inner join t_exercice on Exercice_ID = ID_Exercice
                                                             where ID_Status = 1 and ID_User = '".$_SESSION["id"]."' 
@@ -117,7 +129,16 @@ if(isset($_POST["encours"]) || isset($_GET["encours"])){
                                     
                                         
                                     ?> 
-                                            <tr><td style=" font-weight: bold; width: 10px;"><?php echo $donnees["Exercice_Name"];?></td>
+                                            <tr><td style=" font-weight: bold; width: 10px;">
+
+                                                <p class="image">
+                                                <span><?php echo $donnees["Exercice_Name"];?></span>
+                                                
+                                                <img style="width:200px;" src=<?php echo $donnees["Exercice_Link"];?>>
+                                               
+                                                </p>
+
+                                            </td>
                                                 <td style=" font-weight: bold; width: 10px;"><?php echo $donnees["Exercice_Repetition"];?></td>
                                             
 
@@ -157,6 +178,7 @@ if(isset($_POST["encours"]) || isset($_GET["encours"])){
                                                         <button type="submit" name="validerprog" value="<?php echo $donnees["ID_Exercice"];?>" class="btn btn-primary" style="background-color:#26A64A; font-weight: bold; width:300px;">Valider mon programme</button>
                                                         <br>
                                                         <br>
+
                                                         <button type="submit" name="annulerprog" value="<?php echo $donnees["ID_Exercice"];?>" class="btn btn-danger" style="background-color:#B20000; font-weight: bold; width:300px;">Annuler mon programme</button>
                                                     </form>
 
@@ -213,10 +235,10 @@ if(isset($_POST["generer"])){
                                     $i = $prog["MAX(History_Programme)"]+1;
 
 
-                                    $reponse = $bdd->query("SELECT Exercice_Name,Exercice_ID, (
+                                    $reponse = $bdd->query("SELECT Exercice_Name,Exercice_Link,Exercice_ID, (
                                                                 Exercice_Repetition * ( 
                                                                 SELECT Difficulty_Factor
-                                                                FROM t_difficulty
+                                                                FROM t_difficulty 
                                                                 WHERE Difficulty_Name =  '".$_POST["difficulty"]."' ) * ( 
                                                                 SELECT Objective_Factor
                                                                 FROM t_objective
@@ -244,7 +266,7 @@ if(isset($_POST["generer"])){
                                                                 WHERE Objective_Name =  '".$_POST["objective"]."' )
                                                                 )
                                                                 ORDER BY RAND( ) 
-                                                                LIMIT 3");
+                                                                LIMIT 6");
                                     while ($donnees = $reponse->fetch(PDO::FETCH_ASSOC))
                                     {
                                       
@@ -258,8 +280,18 @@ if(isset($_POST["generer"])){
                                                     '1', CURRENT_TIMESTAMP, NULL)");          
                                     $req->execute();
                                     ?> 
-                                            <tr><td style=" font-weight: bold; width: 10px;"><?php echo $donnees["Exercice_Name"];?></td>
-                                                <td style=" font-weight: bold; width: 10px;"><?php echo $donnees["Exercice_Repetition"];?></td>     
+                                            <tr>
+<td style=" font-weight: bold; width: 10px;">
+
+                                                <p class="image">
+                                                <span><?php echo $donnees["Exercice_Name"];?></span>
+                                                
+                                                <img style="width:200px;" src=<?php echo $donnees["Exercice_Link"];?>>
+                                               
+                                                </p>
+
+                                            </td>
+                                            <td style=" font-weight: bold; width: 10px;"><?php echo $donnees["Exercice_Repetition"];?></td>     
                                             </tr>                     
                                     <?php
                                     }
